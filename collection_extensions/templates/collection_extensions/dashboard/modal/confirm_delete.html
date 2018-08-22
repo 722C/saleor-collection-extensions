@@ -1,0 +1,28 @@
+{% extends "dashboard/base_modal.html" %}
+
+{% load i18n %}
+
+{% block form_class %}{% endblock %}
+
+{% block action_url %}
+{% url 'collection-extension-dashboard-delete' pk=collection_extension.pk %}
+{% endblock %}
+
+{% block title %}
+{% blocktrans trimmed context "Modal remove collection extension text" %}
+  Remove collection extension <strong>{{ collection_extension }}</strong>?
+{% endblocktrans %}
+{% endblock %}
+
+{% block content %}
+  <div class="col s12">
+  {% blocktrans trimmed context "Modal remove collection extension text" %}
+    Are you sure you want to remove collection extension {{ collection_extension }}?
+    <br> This collection will no longer have this extension.
+  {% endblocktrans %}
+  </div>
+{% endblock content %}
+
+{% block primary_action %}
+{% trans "Remove" context "Dashboard delete action" %}
+{% endblock %}

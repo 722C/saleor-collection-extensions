@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% if perms.collection_extensions.view %}
+<li class="side-nav-section">
+  <p>
+    {% trans "Collection Extensions" context "Dashboard collection extensions list" %}
+  </p>
+  <ul>
+      {% if perms.collection_extensions.vew %}
+        <li class="{% block menu_collection_extensions_class %}{% endblock %}">
+          <a href="{% url 'collection-extension-dashboard-list' %}">
+            {% trans "Collections" context "Dashboard collection extensions list" %}
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+</li>
+{% endif %}
+

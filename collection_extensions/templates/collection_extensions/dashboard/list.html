@@ -1,0 +1,78 @@
+{% extends "dashboard/base.html" %}
+{% load i18n %}
+{% load materializecss %}
+{% load staticfiles %}
+{% load utils %}
+
+{% block title %}
+  {% trans "Collection Extensions" context "Dashboard collection extensions list" %} - {{ block.super }}
+{% endblock %}
+
+{% block body_class %}body-customers{% endblock %}
+
+{% block menu_collection_extensions_class %}active{% endblock %}
+
+{% block header_extra %}
+  {% if perms.collection_extensions.edit %}
+    <div class="btn-fab-fixed">
+      <a href="{% url 'collection-extension-dashboard-create' %}" class="btn-fab-default waves-effect waves-light" title="{% trans "Add collection extension" context "Collection extension list add button text" %}">
+        <svg data-src="{% static "dashboard/images/add.svg" %}" />
+      </a>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block breadcrumbs %}
+  <ul class="breadcrumbs">
+    <li class="visible-s">
+      {% trans "Collection Extensions" context "Dashboard collection extensions list" %}
+    </li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col s12 l9">
+      {% if collection_extensions %}
+        <div class="card">
+          <div class="data-table-container">
+            <table class="bordered highlight data-table data-table-description">
+              <thead>
+                <tr>
+                  {% trans "Name" context "Dashboard collection extensions list table header name" as label %}
+                  {% sorting_header 'name' label %}
+                </tr>
+              </thead>
+              <tbody>
+                {% for collection_extension in collection_extensions %}
+                  <tr data-action-go="{% if perms.collection_extensions.edit %}{% url 'collection-extension-dashboard-detail' pk=collection_extension.pk %}{% endif %}">
+                    <td>
+                      {{ collection_extension }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {% paginate collection_extensions %}
+      {% else %}
+        {% if is_empty %}
+          {% include 'collection_extensions/dashboard/zero_page.html' %}
+        {% else %}
+          <div class="col s12">
+            <div class="not-found">
+              <p class="grey-text">
+                {% trans "No collection extensions found." context "Empty collection extensions table message" %}
+              </p>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+    <div class="col s12 l3" id="filters">
+      {% if not is_empty %}{% filters filter_set %}{% endif %}
+    </div>
+  </div>
+{% endblock %}
+
