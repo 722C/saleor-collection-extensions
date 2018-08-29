@@ -3,12 +3,15 @@ from django.db.models import Q
 from django.utils.translation import pgettext_lazy
 
 from saleor.product.models import Collection
+from saleor.dashboard.product.forms import RichTextField
 from ..models import CollectionExtension
 
 
 class CollectionExtensionForm(forms.ModelForm):
     collection = forms.ModelChoiceField(
         queryset=Collection.objects.all())
+
+    content = RichTextField()
 
     class Meta:
         model = CollectionExtension
