@@ -6,7 +6,7 @@
     {% trans "Collection Extensions" context "Dashboard collection extensions list" %}
   </p>
   <ul>
-      {% if perms.collection_extensions.vew %}
+      {% if perms.collection_extensions.view %}
         <li class="{% block menu_collection_extensions_class %}{% endblock %}">
           <a href="{% url 'collection-extension-dashboard-list' %}">
             {% trans "Collections" context "Dashboard collection extensions list" %}
