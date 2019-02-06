@@ -22,7 +22,7 @@ def collection_extension_list(request):
     collection_extension_filter = CollectionExtensionFilter(
         request.GET, queryset=collection_extensions)
     collection_extensions = get_paginator_items(
-        collection_extensions, settings.DASHBOARD_PAGINATE_BY, request.GET.get('page'))
+        collection_extension_filter.qs, settings.DASHBOARD_PAGINATE_BY, request.GET.get('page'))
     # Call this so that cleaned_data exists on the filter_set
     collection_extension_filter.form.is_valid()
     ctx = {
